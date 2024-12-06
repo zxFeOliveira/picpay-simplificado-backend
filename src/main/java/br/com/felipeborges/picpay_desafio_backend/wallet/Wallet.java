@@ -10,6 +10,6 @@ public record Wallet (
     Long cpf,
     String email,
     String password,
-    int type,
+    WalletType type,
     BigDecimal balance) {
 }
