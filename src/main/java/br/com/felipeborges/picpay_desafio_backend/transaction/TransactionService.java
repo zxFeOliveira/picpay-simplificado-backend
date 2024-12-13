@@ -1,9 +1,11 @@
 package br.com.felipeborges.picpay_desafio_backend.transaction;
 
+import br.com.felipeborges.picpay_desafio_backend.exception.InvalidTransactionException;
 import br.com.felipeborges.picpay_desafio_backend.wallet.Wallet;
 import br.com.felipeborges.picpay_desafio_backend.wallet.WalletRepository;
 import br.com.felipeborges.picpay_desafio_backend.wallet.WalletType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TransactionService {
@@ -15,6 +17,7 @@ public class TransactionService {
         this.walletRepository = walletRepository;
     }
 
+    @Transactional
     public Transaction create(Transaction transaction) {
         // 1 - validar
         validate(transaction);
@@ -40,8 +43,8 @@ public class TransactionService {
         walletRepository.findById(transaction.payee())
                 .map(payee -> walletRepository.findById(transaction.payer())
                         .map(payer -> isTransactionValid(transaction, payer) ? transaction : null)
-                        .orElseThrow())
-                .orElseThrow();
+                        .orElseThrow(() -> new InvalidTransactionException("Invalid Transaction - %s".formatted(transaction))))
+                .orElseThrow(() -> new InvalidTransactionException("Invalid Transaction - %s".formatted(transaction)));
         
     }
 
