@@ -39,9 +39,15 @@ public class TransactionService {
     private void validate(Transaction transaction) {
         walletRepository.findById(transaction.payee())
                 .map(payee -> walletRepository.findById(transaction.payer())
-                        .map(payer -> payer.type() == WalletType.COMUM.getValue() &&
-                        payer.balance().compareTo(transaction.value()) >= 0 &&
-                        !payer.id().equals(transaction.payee()) ? transaction : null));
-        //1:09:07
+                        .map(payer -> isTransactionValid(transaction, payer) ? transaction : null)
+                        .orElseThrow())
+                .orElseThrow();
+        
+    }
+
+    private boolean isTransactionValid(Transaction transaction, Wallet payer) {
+        return payer.type() == WalletType.COMUM.getValue() &&
+                payer.balance().compareTo(transaction.value()) >= 0 &&
+                !payer.id().equals(transaction.payee());
     }
 }
