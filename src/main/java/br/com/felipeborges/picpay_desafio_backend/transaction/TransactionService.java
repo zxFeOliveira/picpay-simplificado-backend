@@ -8,6 +8,8 @@ import br.com.felipeborges.picpay_desafio_backend.wallet.WalletType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class TransactionService {
     private final TransactionRepository transactionRepository;
@@ -62,5 +64,9 @@ public class TransactionService {
         return payer.type() == WalletType.COMUM.getValue() &&
                 payer.balance().compareTo(transaction.value()) >= 0 &&
                 !payer.id().equals(transaction.payee());
+    }
+
+    public List<Transaction> list() {
+        return transactionRepository.findAll();
     }
 }
