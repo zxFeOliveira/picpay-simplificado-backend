@@ -1,7 +1,6 @@
 package br.com.felipeborges.picpay_desafio_backend.transaction;
 
 import br.com.felipeborges.picpay_desafio_backend.authorization.AuthorizerService;
-import br.com.felipeborges.picpay_desafio_backend.exception.InvalidTransactionException;
 import br.com.felipeborges.picpay_desafio_backend.wallet.Wallet;
 import br.com.felipeborges.picpay_desafio_backend.wallet.WalletRepository;
 import br.com.felipeborges.picpay_desafio_backend.wallet.WalletType;

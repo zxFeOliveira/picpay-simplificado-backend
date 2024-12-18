@@ -1,4 +1,4 @@
-package br.com.felipeborges.picpay_desafio_backend.exception;
+package br.com.felipeborges.picpay_desafio_backend.authorization;
 
 public class UnauthorizedTransactionException extends RuntimeException{
 

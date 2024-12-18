@@ -1,6 +1,5 @@
 package br.com.felipeborges.picpay_desafio_backend.authorization;
 
-import br.com.felipeborges.picpay_desafio_backend.exception.UnauthorizedTransactionException;
 import br.com.felipeborges.picpay_desafio_backend.transaction.Transaction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -23,4 +22,6 @@ public class AuthorizerService {
             throw new UnauthorizedTransactionException("Unauthorized transaction");
         }
     }
+
+
 }
